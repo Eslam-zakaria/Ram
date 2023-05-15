@@ -1,0 +1,23 @@
+version: '2'
+services:
+    app:
+        build: ./php-fpm
+        volumes:
+            - ./:/var/www/website
+            - ./php-fpm/php.ini:/usr/local/etc/php/php.ini
+    web:
+        image: nginx:latest
+        ports:
+            - "80:80"
+        volumes:
+            - ./:/var/www/website
+            - ./nginx/website.conf:/etc/nginx/conf.d/default.conf
+        depends_on:
+            - app
+    jenkins:
+      image: jenkins/jenkins:jdk11
+      ports:
+        - "8080:8080"
+        - "50000:50000"
+      depends_on:
+        - app

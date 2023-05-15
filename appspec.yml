@@ -1,0 +1,10 @@
+version: 0.0
+os: linux
+files:
+  - source: ./
+    destination: /root/ram-main-website
+hooks:
+  AfterInstall:
+   - location: install.sh
+     timeout: 60000
+     runas: root
